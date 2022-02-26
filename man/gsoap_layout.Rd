@@ -4,12 +4,27 @@
 \alias{gsoap_layout}
 \title{A function to create a layout for GSOAP plot}
 \usage{
-gsoap_layout(x, genes, pvalues, splitter = "/", distance = "jaccard",
-  projection = "iso", scale.factor = 1, weighted = TRUE,
-  packing = TRUE, clustering = TRUE, hc.method = "ward.D",
-  no.clusters = NULL, max.clusters = 8, cluster.stat = "meta",
-  isomap.k = 3, tsne.perplexity = 30, tsne.iterations = 1000,
-  cca.epochs = 10, cca.alpha0 = 0.5)
+gsoap_layout(
+  x,
+  genes,
+  pvalues,
+  splitter = "/",
+  distance = "jaccard",
+  projection = "iso",
+  scale.factor = 1,
+  weighted = TRUE,
+  packing = TRUE,
+  clustering = TRUE,
+  hc.method = "ward.D",
+  no.clusters = NULL,
+  max.clusters = 8,
+  cluster.stat = "meta",
+  isomap.k = 3,
+  tsne.perplexity = 30,
+  tsne.iterations = 1000,
+  cca.epochs = 10,
+  cca.alpha0 = 0.5
+)
 }
 \arguments{
 \item{x}{a data frame with the results of gene set over-representation analysis.

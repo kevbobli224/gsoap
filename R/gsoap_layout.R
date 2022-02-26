@@ -335,14 +335,23 @@ gsoap_layout = function(x,
   } else {
     layout = data.frame(layout)
   }
-  # Set  colnames
+  # Set colnames
   layout = setNames(layout, c('x', 'y', 'radius'))
-  # Set rownames
-  rownames(layout) = rownames(x)
+
   # Calculate number of members
   layout$size = no.members
   # Calculate significance
   layout$significance = -log10(x[,pvalues])
+
+  # Set names as column values
+  layout$pnames <- rownames(x)
+
+  # Retain miscellaneous information from x
+  layout$src <- x$Source
+  layout$pval <- x$p.value
+  layout$fdr <- x$FDR
+  layout$mems <- x$Members
+
   # Set weights
   weights = rep(1, nrow(layout))
   if (weighted){

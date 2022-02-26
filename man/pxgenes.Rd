@@ -4,14 +4,16 @@
 \name{pxgenes}
 \alias{pxgenes}
 \title{Pathways Enrichment of the LUAD Paradoxical Genes}
-\format{a data frame with 170 rows and 5 columns:
+\format{
+a data frame with 170 rows and 5 columns:
 \itemize{
 \item Source -- original source of the pathway
 \item Pathway -- pathway name
 \item p.value -- significance of the pathway enrichment
 \item FDR -- FDR-adjusted p-value
 \item Members -- list of query genes members of the pathway
-}}
+}
+}
 \source{
 \itemize{
 \item Rahmati et al.

@@ -4,19 +4,38 @@
 \alias{gsoap_plot}
 \title{A function to create Gene Set Overrepresentation Analysis Plot}
 \usage{
-gsoap_plot(layout, as.color = NULL, as.alpha = NULL,
-  which.labels = NULL, show.size.guide = TRUE,
-  show.color.guide = TRUE, show.alpha.guide = TRUE,
-  size.guide.loc = c(1, 0), size.guide.no = 4,
-  default.color = "black", default.alpha = 0.5, range.alpha = c(0.1,
-  0.9), viridis.option = "viridis", viridis.direction = 1,
-  viridis.range = c(0, 1), label.alpha = 1, segment.alpha = 0.5,
-  repel.xynudges = c(0.1, 0.1), repel.hvjust = c(0, 0),
-  repel.direction = "both", base.fontsize = 8,
+gsoap_plot(
+  layout,
+  as.color = NULL,
+  as.alpha = NULL,
+  which.labels = NULL,
+  show.size.guide = TRUE,
+  show.color.guide = TRUE,
+  show.alpha.guide = TRUE,
+  size.guide.loc = c(1, 0),
+  size.guide.no = 4,
+  default.color = "black",
+  default.alpha = 0.5,
+  range.alpha = c(0.1, 0.9),
+  viridis.option = "viridis",
+  viridis.direction = 1,
+  viridis.range = c(0, 1),
+  label.alpha = 1,
+  segment.alpha = 0.5,
+  repel.xynudges = c(0.1, 0.1),
+  repel.hvjust = c(0, 0),
+  repel.direction = "both",
+  base.fontsize = 8,
   size.guide.fontsize = base.fontsize - 1,
-  label.fontsize = base.fontsize - 1, title = NULL, subtitle = NULL,
-  xlabel = "proj. 1", ylabel = "proj. 2", xlimits = c(-0.1, 1.1),
-  ylimits = c(-0.1, 1.1), void = FALSE)
+  label.fontsize = base.fontsize - 1,
+  title = NULL,
+  subtitle = NULL,
+  xlabel = "proj. 1",
+  ylabel = "proj. 2",
+  xlimits = c(-0.1, 1.1),
+  ylimits = c(-0.1, 1.1),
+  void = FALSE
+)
 }
 \arguments{
 \item{layout}{a data frame, a layout created by \code{\link{gsoap_layout}}.}
