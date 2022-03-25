@@ -42,7 +42,26 @@ unlink(file.path(getwd(), "output/widgets_files"), recursive = TRUE)
 # To view in RStudio's viewer:
 w
 
-# To save as pure svg
-dsvg(file="./output/widgets.svg")
-plot(p)
-dev.off()
+# To save as pure svg, uncomment
+# dsvg(file="./output/widgets.svg")
+# plot(p)
+# dev.off()
+
+# This attaches necessary javascript dependencies and our own script
+library("xml2")
+h <- read_html("./output/widgets.html")
+
+jQ <- read_xml('<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>')
+jQUI <- read_xml('<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>')
+jQss <- read_xml('<link href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css" type="text/css" rel="stylesheet"></link>')
+
+xml_add_child(xml_children(h)[1], jQ)
+xml_add_child(xml_children(h)[1], jQUI)
+xml_add_child(xml_children(h)[1], jQss)
+
+tag <- paste0("<script></script>")
+post_proc <- read_xml(tag)
+xml_text(post_proc) <- as.character(readLines("./output/postproc_min.js"))
+
+xml_add_child(xml_children(h)[1], post_proc)
+write_html(h, "./output/widgets_modified.html")
