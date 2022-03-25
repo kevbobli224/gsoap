@@ -229,7 +229,13 @@ gsoap_svg <-function(layout,
   # Add annotation
   # ---------------
   if(!is.null(which.labels)){
-    p <- p + ggiraph::geom_text_repel_interactive(data = layout[which(layout$pnames %in% which.labels),],
+    if(!all.equal(which.labels, as.integer(which.labels))){
+      layout.subset <- layout[which(layout$pnames %in% which.labels),]
+    } else {
+      layout.subset <- layout[which.labels,]
+    }
+
+    p <- p + ggiraph::geom_text_repel_interactive(data = layout.subset,
                                                   nudge_x = repel.xynudges[1],
                                                   nudge_y = repel.xynudges[2],
                                                   hjust = repel.hvjust[1],
