@@ -37,7 +37,7 @@ w
 dir.create(file.path(getwd(), "output"), showWarnings = FALSE)
 
 # Save the html widget
-saveWidget(w, file="./output/widgets.html", selfcontained = TRUE, libdir = NULL)
+saveWidget(w, file=file.path(paste0(getwd(), "/output/widgets.html")), selfcontained = TRUE, libdir = NULL)
 
 # htmlwidgets has a persistent issue(>1y.o) where dependencies created as a
 # directory will not be deleted afterwards when selfcontained = TRUE
