@@ -21,7 +21,30 @@ document.addEventListener("DOMContentLoaded", function(event){
 	}
 	head.appendChild(style);
 
+	// Labels
+	var numLabels = $("text").length - 25;
+
 	// Functions
+	function onAxisLabelsChange(event){
+		var targetElement = event.target || event.srcElement;
+		if(targetElement.getAttribute("name") == "tbVert"){
+			axisLabels[0].innerHTML = targetElement.value;
+		} else {
+			axisLabels[1].innerHTML = targetElement.value;
+		}
+	}
+
+	function onCheckLabelToggle(event){
+		var targetElement = event.target || event.srcElement;
+		if(targetElement.checked){
+			labelElements.each(function(){this.setAttribute("opacity", 0)});
+			labelLinesElements.forEach(k => k.setAttribute("opacity", 0));
+		} else {
+			labelElements.each(function(){this.setAttribute("opacity", 100)});
+			labelLinesElements.forEach(k => k.setAttribute("opacity", 100));
+		}
+	}
+
 	function onClickLegendSelect(event){
 		var targetElement = event.target || event.srcElement;
 		var toPruneList = [];
@@ -105,9 +128,6 @@ document.addEventListener("DOMContentLoaded", function(event){
 		
 		return sliderDiv;
 	}
-
-
-
 
 	// dataList: Array of all bubbles html elements
 	var dataList = [];
@@ -194,6 +214,59 @@ document.addEventListener("DOMContentLoaded", function(event){
 		var slider = createSliderNumeric(selectedNumericKey[0], selectedNumericKey[1], selectedNumericKey[2])
 		parametersDiv.append(slider);
 	}
+
+	// Label Handling
+	if(numLabels > 0){
+		var labelElements = $("text").slice(4, 4 + numLabels);
+
+		var labelLinesElements = [];
+		$("line").each(function() {
+			if(this.hasAttribute("stroke") && !this.hasAttribute("stroke-linejoin")){
+				labelLinesElements.push(this);
+			}
+		});
+		var labelDiv = document.createElement("div");
+		var labelToggleLabels = document.createElement("label");
+		labelToggleLabels.setAttribute("for", "cbToggleLabels");
+		labelToggleLabels.innerHTML = "Toggle Labels";
+		var checkboxToggleLabels = document.createElement("input");
+		setAttributes(checkboxToggleLabels, {"type": "checkbox", "name": "cbToggleLabels"});
+		checkboxToggleLabels.addEventListener("click", onCheckLabelToggle);
+		labelDiv.append(labelToggleLabels);
+		labelDiv.append(checkboxToggleLabels);
+	}
+
+	// Axis Labeling
+	var axisLabels = [];
+	$("text").each(function(){
+		if(this.getAttribute("font-size") == "6pt" && axisLabels.length < 2){
+			axisLabels.push(this);
+		}
+	})
+	var inputVerticalAxis = document.createElement("input");
+	setAttributes(inputVerticalAxis, {"name": "tbVert", "placeholder": "Vertical Axis Name"});
+	inputVerticalAxis.addEventListener("input", onAxisLabelsChange);
+	var inputHorizontalAxis = document.createElement("input");
+	setAttributes(inputHorizontalAxis, {"name": "tbHori", "placeholder": "Horizontal Axis Name"});
+	inputHorizontalAxis.addEventListener("input", onAxisLabelsChange);
+	var divAxis1 = document.createElement("div");
+	divAxis1.append(inputVerticalAxis);
+	var divAxis2 = document.createElement("div");
+	divAxis2.append(inputHorizontalAxis);
+
+
+	parametersDiv.append(labelDiv, divAxis1, divAxis2);
+
+	// Reset Zoom Button
+	var btnResetZoom = document.createElement("button");
+	btnResetZoom.innerHTML = "Reset Zoom"
+	btnResetZoom.onclick = function(){
+		$("g")[0].removeAttribute("transform");
+		$('a[title="deactivate pan-zoom"]')[0].click();
+	}
+	var divResetBtn = document.createElement("div");
+	divResetBtn.append(btnResetZoom);
+	parametersDiv.append(divResetBtn);
 
 	// Get container
 	var gContainer = document.getElementsByClassName("girafe_container_std")[0];
